@@ -4,6 +4,14 @@ import cProfile
 import StringIO
 import pstats
 
+words_re = re.compile(r'\s+')
+
+group_prefix_re = [
+    re.compile("^.*/django/[^/]+"),
+    re.compile("^(.*)/[^/]+$"),
+    re.compile(".*"),
+]
+
 class NewProfileMiddleware(object):
     """Profiling Request using cProfile"""
     def process_request(self, request):
